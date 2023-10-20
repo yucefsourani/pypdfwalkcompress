@@ -19,4 +19,5 @@ options:
   -t Reduce PDF Size Type (image|compression) ,Default image., --type Reduce PDF Size Type (image|compression) ,Default image.
   -l Folder|File Location, --location Folder|File Location
   -q Quality range 1--->100 ,Default 80'(%)', --quality Quality range 1--->100 ,Default 80'(%)'
-  -r, --recursive       Get PDF files from directories and their contents recursively, Default False. ```
+  -r, --recursive       Get PDF files from directories and their contents recursively, Default False.
+```

@@ -29,9 +29,12 @@ from pypdf import PdfReader, PdfWriter
 
 def is_pdf(file_location):
     ispdf = False
-    with open(file_location,"rb") as mf:
-        if mf.read(5).decode("utf-8")[1:] == "PDF-":
-            ispdf = True
+    try:
+        with open(file_location,"rb") as mf:
+            if mf.read(5).decode("utf-8")[1:] == "PDF-":
+                ispdf = True
+    except Exception as e:
+        print(e)
     return ispdf
     
 def image_compress_pdf_file(file_location,quality):
@@ -76,13 +79,13 @@ def image_main_commpress_pdf(location,quality,walk):
         quality = 1
     if os.path.isdir(location):
         if walk:
-            return image_walk_and_compress_pdf_files(location,quality)
+            image_walk_and_compress_pdf_files(location,quality)
         else:
-            return image_compress_pdf_files(location,quality)
+            image_compress_pdf_files(location,quality)
     elif os.path.isfile(location):
         if is_pdf(location) :
             image_compress_pdf_file(location,quality)
-    return False
+
                 
 
 
@@ -127,13 +130,13 @@ def compress_main_commpress_pdf(location,quality,walk):
     quality = 10-math.ceil(quality/10)
     if os.path.isdir(location):
         if walk:
-            return compress_walk_and_compress_pdf_files(location,quality)
+            compress_walk_and_compress_pdf_files(location,quality)
         else:
-            return compress_pdf_files(location,quality)
+            compress_pdf_files(location,quality)
     elif os.path.isfile(location):
         if is_pdf(location):
             compress_pdf_file(location,quality)
-    return False
+
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = "Script To Reduce PDF Files Size.")
@@ -150,8 +153,8 @@ if __name__ == "__main__":
     quality   = args.quality
     recursive = args.recursive
     if type_ == "image":
-        start_compress = image_main_commpress_pdf 
+        image_main_commpress_pdf(location,quality,recursive)
     else :
-        start_compress = compress_main_commpress_pdf
+        compress_main_commpress_pdf(location,quality,recursive)
 
-    start_compress(location,quality,recursive)
+
